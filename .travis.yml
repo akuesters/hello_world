@@ -1,0 +1,15 @@
+language: cpp
+sudo: false
+os:
+  - linux
+  - osx
+compiler: gcc
+
+env:
+    - BUILD_NAME=serial  WITH_DISTRIBUTED=serial
+
+before_install:
+  - CC=gcc
+  - CXX=g++
+
+script: source ./scripts/travis/build.sh
