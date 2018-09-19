@@ -5,11 +5,16 @@ os:
   - osx
 compiler: gcc
 
-env:
-    - BUILD_NAME=serial  WITH_DISTRIBUTED=serial
+#env:
+#    - BUILD_NAME=serial  WITH_DISTRIBUTED=serial
+
+matrix:
+  include:
+    - os: osx
+      env:
+        - MATRIX_EVAL="CC=`which gcc` && CXX=`which g++`"
 
 before_install:
-  - CC=gcc
-  - CXX=g++
+    - eval "${MATRIX_EVAL}"
 
 script: source ./scripts/travis/build.sh

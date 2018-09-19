@@ -5,6 +5,6 @@
 int main()
 {
   std::cout << "Hello World!" << std::endl;
-  std::cout << "Testing Travis CI!" << std::endl;
+  std::cout << "Testing Travis CI on Mac!" << std::endl;
   return 0;
 }
