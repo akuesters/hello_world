@@ -27,9 +27,10 @@ if [[ "${WITH_DISTRIBUTED}" = "mpi" ]]; then
     export OMPI_CXX=${CXX}
     CC="mpicc"
     CXX="mpicxx"
-    echo `mpiexec --version`
+    mpiexec_version=`mpiexec --version`
+    echo "mpiexec    : ${mpiexec_version}"
     if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-        launch="mpiexec -n 4 --oversubscribe"
+        launch="mpiexec -n 4 --oversubscribe --mca btl tcp,self"
     else 
         launch="mpiexec -n 4"
     fi
