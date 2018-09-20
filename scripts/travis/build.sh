@@ -21,6 +21,20 @@ echo "cmake      : ${cmake_version}"
 echo "build path : ${build_path}"
 echo "base path  : ${base_path}"
 
+if [[ "${WITH_DISTRIBUTED}" = "mpi" ]]; then
+    echo "mpi        : on"
+    export OMPI_CC=${CC}
+    export OMPI_CXX=${CXX}
+    CC="mpicc"
+    CXX="mpicxx"
+    launch="mpiexec -n 4"
+    WITH_MPI="ON"
+else
+    echo "mpi        : off"
+    launch=""
+    WITH_MPI="OFF"
+fi
+
 #
 # make build path
 #
@@ -31,8 +45,30 @@ cd $build_path
 # run make
 #
 progress "Configuring with make"
+cmake_flags="-DARB_WITH_ASSERTIONS=ON -DARB_WITH_MPI=${WITH_MPI} ${CXX_FLAGS}"
+echo "cmake flags: ${cmake_flags}"
 
 cd ../
-make
+
+if [[ "${WITH_MPI}" = "ON" ]]; then
+    progress "make MPI version"
+    make hello_mpi || error "unable to configure make"
+else
+    progress "make serial version"
+    make hello || error "unable to configure make"
+fi
+
+cd $base_path
+
+if [[ "${WITH_MPI}" = "ON" ]]; then
+    progress "======== run MPI version ======="
+    ${launch} ./hello_mpi
+else
+    progress "======== run serial version ======="
+    ./hello
+fi
+
+progress "Cleaning make"
+make clean
 
 cd $base_path
