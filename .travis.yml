@@ -44,6 +44,22 @@ matrix:
     - os: osx
       addons: apt
       env: MATRIX_EVAL="CC=clang-3.8 && CXX=clang++-3.8"
+    - os: osx
+      addons: 
+        homebrew:
+          packages: gcc@6
+      env:
+        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+        - MATRIX_EVAL="CC=clang && CXX=clang++"
+        - MATRIX_EVAL="CC=clang-3.8 && CXX=clang++-3.8"
+    - os: osx
+      addons: 
+        homebrew:
+          packages: gcc@7
+      env:
+        - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6"
+        - MATRIX_EVAL="CC=clang && CXX=clang++"
+        - MATRIX_EVAL="CC=clang-3.8 && CXX=clang++-3.8"
     - os: linux
       addons: homebrew
       env: MATRIX_EVAL="CC=clang && CXX=clang++"
@@ -57,7 +73,7 @@ matrix:
         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7" 
 
 before_script:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export HOMEBREW_NO_AUTO_UPDATE=1; brew cask uninstall --force oclint; rm /usr/local/include/c++; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export HOMEBREW_NO_AUTO_UPDATE=1; brew cask uninstall --force oclint; rm '/usr/local/include/c++'; fi
   - if [[ ( "$TRAVIS_OS_NAME" == "osx" ) && ( "$WITH_DISTRIBUTED" == "mpi" ) ]]; then brew install open-mpi; fi
   - eval "${MATRIX_EVAL}"
 
