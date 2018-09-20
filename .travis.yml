@@ -6,13 +6,13 @@ matrix:
     - os: osx
       osx_image: xcode10
       env:
-        - MATRIX_EVAL="brew install gcc6 && CC=gcc-6 && CXX=g++-6"
+        - MATRIX_EVAL="brew install gcc6 && brew link --overwrite gcc@6 && CC=gcc-6 && CXX=g++-6"
         - BUILD_NAME=serial  WITH_DISTRIBUTED=serial
 
     - os: osx
       osx_image: xcode10
       env:
-        - MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7"
+        - MATRIX_EVAL="brew install gcc7 && brew link --overwrite gcc@7 && CC=gcc-7 && CXX=g++-7"
         - BUILD_NAME=serial  WITH_DISTRIBUTED=serial
 
     - os: osx
