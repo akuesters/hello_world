@@ -27,7 +27,8 @@ if [[ "${WITH_DISTRIBUTED}" = "mpi" ]]; then
     export OMPI_CXX=${CXX}
     CC="mpicc"
     CXX="mpicxx"
-    launch="mpiexec -n 4"
+    echo `mpiexec --version`
+    launch="mpiexec -n 4 --oversubscribe"
     WITH_MPI="ON"
 else
     echo "mpi        : off"
