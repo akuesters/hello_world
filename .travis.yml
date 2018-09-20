@@ -57,8 +57,8 @@ matrix:
       compiler: clang-3.8
 
 env:
-#  global:
-  matrix:
+  global:
+#  matrix:
     - BUILD_NAME=serial  WITH_DISTRIBUTED=serial
 
 before_install:
