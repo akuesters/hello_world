@@ -28,7 +28,11 @@ if [[ "${WITH_DISTRIBUTED}" = "mpi" ]]; then
     CC="mpicc"
     CXX="mpicxx"
     echo `mpiexec --version`
-    launch="mpiexec --oversubscribe -n 4"
+    if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+        launch="mpiexec -n 4 --oversubscribe"
+    else 
+        launch="mpiexec -n 4"
+    fi
     WITH_MPI="ON"
 else
     echo "mpi        : off"

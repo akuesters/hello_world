@@ -132,7 +132,7 @@ matrix:
             - libopenmpi-dev
       env:
         - MATRIX_EVAL="CC=clang-3.8 && CXX=clang++-3.8"
-        - BUILD_NAME=serial WITH_DISTRIBUTED=serial
+        - BUILD_NAME=mpi WITH_DISTRIBUTED=mpi
       compiler: clang-3.8
 
 before_script:
