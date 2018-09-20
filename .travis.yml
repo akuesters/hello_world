@@ -5,22 +5,14 @@ matrix:
   include:
     - os: osx
       osx_image: xcode10
-      addons:
-        homebrew:
-          packages:
-            - gcc@6
       env:
-        - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6"
+        - MATRIX_EVAL="brew install gcc6 && CC=gcc-6 && CXX=g++-6"
         - BUILD_NAME=serial  WITH_DISTRIBUTED=serial
 
     - os: osx
       osx_image: xcode10
-      addons:
-        homebrew:
-          packages:
-            - gcc@7
       env:
-        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+        - MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7"
         - BUILD_NAME=serial  WITH_DISTRIBUTED=serial
 
     - os: osx
@@ -40,6 +32,29 @@ matrix:
             - g++-6
       env:
         - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6"
+        - BUILD_NAME=serial  WITH_DISTRIBUTED=serial
+
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
+      env:
+        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+        - BUILD_NAME=serial  WITH_DISTRIBUTED=serial
+
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-precise-3.8
+          packages:
+            - clang-3.8
+      env:
+        - MATRIX_EVAL="CC=clang-3.8 && CXX=clang++-3.8"
         - BUILD_NAME=serial  WITH_DISTRIBUTED=serial
 
 before_install:
