@@ -7,17 +7,19 @@ matrix:
       osx_image: xcode10
       env:
         - MATRIX_EVAL="brew cask uninstall --force oclint && brew install gcc@6 && brew link --force --overwrite gcc@6 && CC=gcc-6 && CXX=g++-6"
+      compiler: gcc-6
 
     - os: osx
       osx_image: xcode10
       env:
         - MATRIX_EVAL="brew cask uninstall --force oclint && brew install gcc@7 && brew link --force --overwrite gcc@7 && CC=gcc-7 && CXX=g++-7"
+      compiler: gcc-7
 
     - os: osx
       osx_image: xcode10
       env:
-        # On OS X, gcc is an alias for clang, and g++ is an alias for clang++
-        - MATRIX_EVAL="CC=gcc && CXX=g++"
+        - MATRIX_EVAL="CC=clang && CXX=clang++"
+      compiler: clang
 
     - os: linux
       dist: trusty
@@ -29,6 +31,7 @@ matrix:
             - g++-6
       env:
         - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6"
+      compiler: gcc-6
 
     - os: linux
       addons:
@@ -39,6 +42,7 @@ matrix:
             - g++-7
       env:
         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+      compiler: gcc-7
 
     - os: linux
       addons:
@@ -50,6 +54,7 @@ matrix:
             - clang-3.8
       env:
         - MATRIX_EVAL="CC=clang-3.8 && CXX=clang++-3.8"
+      compiler: clang-3.8
 
 env:
   global:
