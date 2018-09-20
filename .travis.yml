@@ -1,18 +1,35 @@
 language: cpp
 sudo: false
-os:
-  - linux
-  - osx
-compiler: gcc
-
-#env:
-#    - BUILD_NAME=serial  WITH_DISTRIBUTED=serial
 
 matrix:
   include:
     - os: osx
+      osx_image: xcode8
       env:
-        - MATRIX_EVAL="CC=`which gcc` && CXX=`which g++`"
+        - MATRIX_EVAL="brew install gcc6 && CC=gcc-6 && CXX=g++-6"
+    
+    - os: osx
+      osx_image: xcode8
+      env:
+        - MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7"
+
+    - os: osx
+      osx_image: xcode8
+      env:
+        # On OS X, gcc is an alias for clang, and g++ is an alias for clang++
+        - MATRIX_EVAL="CC=gcc && CXX=g++"
+
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-6
+
+env:
+    # test serial
+    - BUILD_NAME=serial  WITH_DISTRIBUTED=serial
 
 before_install:
     - eval "${MATRIX_EVAL}"
