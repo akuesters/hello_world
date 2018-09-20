@@ -1,79 +1,142 @@
 language: cpp
 sudo: false
 
-os:
-  - osx
-  - linux
-
-osx_image: xcode10
-dist: trusty
-
-addons:
-  homebrew:
-    packages:
-      - gcc@6
-      - gcc@7
-  apt:
-    sources: 
-      - ubuntu-toolchain-r-test
-      - llvm-toolchain-precise-3.8
-    packages:
-      - openmpi-bin
-      - libopenmpi-dev
-      - g++-6
-      - g++-7
-      - clang-3.8
-
-env:
-  - BUILD_NAME=serial WITH_DISTRIBUTED=serial
-  - BUILD_NAME=mpi WITH_DISTRIBUTED=mpi
-  - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6"
-  - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
-  - MATRIX_EVAL="CC=clang && CXX=clang++"
-  - MATRIX_EVAL="CC=clang-3.8 && CXX=clang++-3.8"
-
-compiler:
-  - gcc
-  - clang
-# - gcc-6
-# - gcc-7
-# - clang-3.8
-
 matrix:
-  exclude: 
+  include:
+#################### OS X #####################
     - os: osx
-      addons: apt
-      env: MATRIX_EVAL="CC=clang-3.8 && CXX=clang++-3.8"
+      osx_image: xcode10
+      env:
+        - MATRIX_EVAL="brew install gcc@6 && brew link --force --overwrite gcc@6 && CC=gcc-6 && CXX=g++-6"
+        - BUILD_NAME=serial WITH_DISTRIBUTED=serial
+      compiler: gcc
+
     - os: osx
-      addons: 
-        homebrew:
-          packages: gcc@6
+      osx_image: xcode10
+      env:
+        - MATRIX_EVAL="brew install gcc@6 && brew link --force --overwrite gcc@6 && CC=gcc-6 && CXX=g++-6"
+        - BUILD_NAME=mpi WITH_DISTRIBUTED=mpi
+      compiler: gcc
+
+    - os: osx
+      osx_image: xcode10
+      env:
+        - MATRIX_EVAL="brew install gcc@7 && brew link --force --overwrite gcc@7 && CC=gcc-7 && CXX=g++-7"
+        - BUILD_NAME=serial WITH_DISTRIBUTED=serial
+      compiler: gcc
+
+    - os: osx
+      osx_image: xcode10
+      env:
+        - MATRIX_EVAL="brew install gcc@7 && brew link --force --overwrite gcc@7 && CC=gcc-7 && CXX=g++-7"
+        - BUILD_NAME=mpi WITH_DISTRIBUTED=mpi
+      compiler: gcc
+
+    - os: osx
+      osx_image: xcode10
+      env:
+        - MATRIX_EVAL="CC=clang && CXX=clang++"
+        - BUILD_NAME=serial WITH_DISTRIBUTED=serial
+      compiler: clang
+
+    - os: osx
+      osx_image: xcode10
+      env:
+        - MATRIX_EVAL="CC=clang && CXX=clang++"
+        - BUILD_NAME=mpi WITH_DISTRIBUTED=mpi
+      compiler: clang
+
+#################### LINUX #####################
+    - os: linux
+      dist: trusty
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-6
+            - openmpi-bin
+            - libopenmpi-dev
+      env:
+        - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6"
+        - BUILD_NAME=serial WITH_DISTRIBUTED=serial
+      compiler: gcc-6
+
+    - os: linux
+      dist: trusty
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-6
+            - openmpi-bin
+            - libopenmpi-dev
+      env:
+        - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6"
+        - BUILD_NAME=mpi WITH_DISTRIBUTED=mpi
+      compiler: gcc-6
+
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
+            - openmpi-bin
+            - libopenmpi-dev
       env:
         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
-        - MATRIX_EVAL="CC=clang && CXX=clang++"
-        - MATRIX_EVAL="CC=clang-3.8 && CXX=clang++-3.8"
-    - os: osx
-      addons: 
-        homebrew:
-          packages: gcc@7
-      env:
-        - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6"
-        - MATRIX_EVAL="CC=clang && CXX=clang++"
-        - MATRIX_EVAL="CC=clang-3.8 && CXX=clang++-3.8"
+        - BUILD_NAME=serial WITH_DISTRIBUTED=serial
+      compiler: gcc-7
+
     - os: linux
-      addons: homebrew
-      env: MATRIX_EVAL="CC=clang && CXX=clang++"
-    - compiler: gcc
-      env: 
-        - MATRIX_EVAL="CC=clang && CXX=clang++"
-        - MATRIX_EVAL="CC=clang-3.8 && CXX=clang++-3.8"
-    - compiler: clang
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
+            - openmpi-bin
+            - libopenmpi-dev
       env:
-        - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6"
-        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7" 
+        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+        - BUILD_NAME=mpi WITH_DISTRIBUTED=mpi
+      compiler: gcc-7
+
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-precise-3.8
+          packages:
+            - clang-3.8
+            - openmpi-bin
+            - libopenmpi-dev
+      env:
+        - MATRIX_EVAL="CC=clang-3.8 && CXX=clang++-3.8"
+        - BUILD_NAME=serial WITH_DISTRIBUTED=serial
+      compiler: clang-3.8
+
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-precise-3.8
+          packages:
+            - clang-3.8
+            - openmpi-bin
+            - libopenmpi-dev
+      env:
+        - MATRIX_EVAL="CC=clang-3.8 && CXX=clang++-3.8"
+        - BUILD_NAME=mpi WITH_DISTRIBUTED=mpi
+      compiler: clang-3.8
 
 before_script:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export HOMEBREW_NO_AUTO_UPDATE=1; brew cask uninstall --force oclint; rm '/usr/local/include/c++'; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export HOMEBREW_NO_AUTO_UPDATE=1; brew cask uninstall --force oclint; fi
   - if [[ ( "$TRAVIS_OS_NAME" == "osx" ) && ( "$WITH_DISTRIBUTED" == "mpi" ) ]]; then brew install open-mpi; fi
   - eval "${MATRIX_EVAL}"
 
