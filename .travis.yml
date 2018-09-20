@@ -3,8 +3,8 @@ sudo: false
 
 env:
   matrix:
-    - BUILD_NAME=serial  WITH_DISTRIBUTED=serial
-    - BUILD_NAME=mpi     WITH_DISTRIBUTED=mpi
+    - MATRIX_ENV="BUILD_NAME=serial && WITH_DISTRIBUTED=serial"
+    - MATRIX_ENV="BUILD_NAME=mpi    && WITH_DISTRIBUTED=mpi"
 
 matrix:
   include:
@@ -69,6 +69,7 @@ matrix:
 
 before_script:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export HOMEBREW_NO_AUTO_UPDATE=1; brew cask uninstall --force oclint; fi
+  - eval "${MATRIX_ENV}"
   - eval "${MATRIX_EVAL}"
 
 script: source ./scripts/travis/build.sh
