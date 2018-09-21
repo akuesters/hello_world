@@ -4,7 +4,7 @@ all: hello hello_mpi
 
 # This rule tells make how to build hello from hello.cpp
 hello: hello.cpp
-	g++ -o hello -std=c++14 hello.cpp
+	$CXX -o hello -std=c++14 hello.cpp
 
 hello_mpi: hello_mpi.cpp
 	mpicxx -o hello_mpi hello_mpi.cpp
