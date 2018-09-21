@@ -33,14 +33,14 @@ matrix:
       compiler: gcc
 
     - os: osx
-      osx_image: xcode10
+      osx_image: xcode8
       env:
         - MATRIX_EVAL="CC=clang && CXX=clang++"
         - BUILD_NAME=serial WITH_DISTRIBUTED=serial
       compiler: clang
 
     - os: osx
-      osx_image: xcode10
+      osx_image: xcode9
       env:
         - MATRIX_EVAL="CC=clang && CXX=clang++"
         - BUILD_NAME=mpi WITH_DISTRIBUTED=mpi
@@ -109,15 +109,15 @@ matrix:
       addons:
         apt:
           sources:
-            - llvm-toolchain-trusty-5.0
+            - llvm-toolchain-trusty-4.0
           packages:
-            - clang-5.0
+            - clang-4.0
             - openmpi-bin
             - libopenmpi-dev
       env:
-        - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
+        - MATRIX_EVAL="CC=clang-4.0 && CXX=clang++-4.0"
         - BUILD_NAME=serial WITH_DISTRIBUTED=serial
-      compiler: clang-6.0
+      compiler: clang-4.0
 
     - os: linux
       addons:
