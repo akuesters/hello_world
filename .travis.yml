@@ -33,7 +33,7 @@ matrix:
       compiler: gcc
 
     - os: osx
-      osx_image: xcode8
+      osx_image: xcode9
       env:
         - MATRIX_EVAL="CC=clang && CXX=clang++"
         - BUILD_NAME=serial WITH_DISTRIBUTED=serial
