@@ -110,15 +110,15 @@ matrix:
         apt:
           sources:
             - ubuntu-toolchain-r-test
-            - llvm-toolchain-precise-7
+            - llvm-toolchain-precise-6.0
           packages:
-            - clang-7
+            - clang-6.0
             - openmpi-bin
             - libopenmpi-dev
       env:
-        - MATRIX_EVAL="CC=clang-7 && CXX=clang++-7"
+        - MATRIX_EVAL="CC=clang-6.0 && CXX=clang++-6.0"
         - BUILD_NAME=serial WITH_DISTRIBUTED=serial
-      compiler: clang-7
+      compiler: clang-6.0
 
     - os: linux
       addons:
