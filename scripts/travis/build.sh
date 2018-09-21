@@ -13,10 +13,10 @@ build_path=build-${BUILD_NAME}
 #
 progress "build environment"
 
-compiler_version=`${CXX} --version`
+compiler_version=`${CXX} --version | grep version`
 cmake_version=`cmake --version | grep version | awk '{print $3}'`
 
-echo "compiler   : ${CXX} ${compiler_version}"
+echo "compiler   : ${compiler_version}"
 echo "cmake      : ${cmake_version}"
 echo "build path : ${build_path}"
 echo "base path  : ${base_path}"
