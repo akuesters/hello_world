@@ -7,7 +7,7 @@ hello: hello.cpp
 	${CXX} -o hello -std=c++14 hello.cpp
 
 hello_mpi: hello_mpi.cpp
-	mpicxx -o hello_mpi hello_mpi.cpp
+	mpicxx -o hello_mpi -std=c++14 hello_mpi.cpp
 
 clean:
 	rm -rf build*
