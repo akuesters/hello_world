@@ -112,7 +112,7 @@ matrix:
             - llvm-toolchain-trusty-4.0
           packages:
             - clang-4.0
-            - libstdc++-4.8-dev
+            - libstdc++-6-dev
             - libc++-dev
             - openmpi-bin
             - libopenmpi-dev
