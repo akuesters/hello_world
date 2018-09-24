@@ -15,7 +15,7 @@ struct Vec3
     }
 };
  
-int main()
+int main(int argc, char** argv)
 {
     auto v = std::make_unique<Vec3>();
  
